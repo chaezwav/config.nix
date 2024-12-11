@@ -126,7 +126,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/koehn/Documents/nixos";
+    flake = "/home/koehn/Documents/nixos-config";
   };
 
   # List packages installed in system profile. To search, run:

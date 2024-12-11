@@ -37,7 +37,7 @@
       settings = {
         logo = {
           type = "file";
-          source = "/home/koehn/Documents/nixos/assets/fastfetch_logo.txt";
+          source = "/home/koehn/Documents/nixos-config/assets/fastfetch_logo.txt";
         };
 
         modules = [
