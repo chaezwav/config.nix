@@ -16,7 +16,8 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting
-        fastfetch
+
+        test "$TERM" = "xterm-ghostty" && fastfetch
       '';
     };
 

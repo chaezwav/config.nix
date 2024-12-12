@@ -81,14 +81,12 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.koehn = {
     isNormalUser = true;
     description = "Koehn";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.fish;
     # packages = with pkgs; [
     #  thunderbird
     # ];
@@ -99,17 +97,6 @@
 
   # Enable vendor completions
   programs.fish.enable = true;
-
-  # Set fish as the default
-  programs.bash = {
-    interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
