@@ -18,22 +18,13 @@
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
 
-    color-schemes = {
-      url = "github:mbadolato/iTerm2-Color-Schemes";
-      flake = false;
-    };
-
-    ghosttyModule = {
-      url = "github:clo4/ghostty-hm-module";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, ghosttyModule, home-manager, color-schemes, ghostty, nix-index-database, ... }: {
+  outputs = { nixpkgs, home-manager, ghostty, nix-index-database, ... }: {
     nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
       modules = [
         {
@@ -41,10 +32,6 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.koehn = import ./home.nix;
-            sharedModules = [ ghosttyModule.homeModules.default ];
-            extraSpecialArgs = {
-              inherit color-schemes;
-            };
           };
 
           programs.nix-index-database.comma.enable = true;
