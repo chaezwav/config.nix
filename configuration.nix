@@ -125,6 +125,8 @@
     nh
 
     git
+
+    lla
   ];
 
   fonts.packages = with pkgs; [

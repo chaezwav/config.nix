@@ -19,6 +19,7 @@
       zed-editor
       _1password-gui-beta
       _1password-cli
+      zellij
     ];
   };
 

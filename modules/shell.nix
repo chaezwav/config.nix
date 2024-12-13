@@ -17,8 +17,27 @@
       interactiveShellInit = ''
         set fish_greeting
 
-        test "$TERM" = "xterm-ghostty" && fastfetch
+        if test "$TERM" = "xterm-ghostty"
+            if status is-interactive
+                eval (zellij setup --generate-auto-start fish | string collect)
+            end
+            fastfetch
+        end
       '';
+      shellAliases = {
+        ls = "lla";
+      };
+      functions = {
+        fish_prompt = ''
+          set -l nix_shell_info (
+            if test -n "$IN_NIX_SHELL"
+              echo -n "<nix-shell> "
+            end
+          )
+
+          echo -n -s "$nix_shell_info ~> "
+        '';
+      };
     };
 
     bat = {
@@ -31,6 +50,10 @@
       options = [
         "--cmd cd"
       ];
+    };
+
+    zellij = {
+      enable = true;
     };
 
     fastfetch = {
