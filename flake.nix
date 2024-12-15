@@ -4,7 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    stylix.url = "github:danth/stylix";
+    # stylix.url = "github:danth/stylix";
+    hyprland.url = "github:hyprwm/Hyprland";
 
     nh = {
       url = "github:viperML/nh";
@@ -35,7 +36,7 @@
     inputs@{
       self,
       nixpkgs,
-      stylix,
+      # stylix,
       home-manager,
       ghostty,
       nix-index-database,
@@ -44,6 +45,7 @@
     }:
     {
       nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
         modules = [
           {
             home-manager = {
@@ -62,7 +64,7 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           nix-index-database.nixosModules.nix-index
-          stylix.nixosModules.stylix
+          # stylix.nixosModules.stylix
         ];
       };
     };

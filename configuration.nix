@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -22,12 +27,6 @@
   networking = {
     hostName = "performante";
     networkmanager.enable = true;
-  };
-
-  stylix = {
-    enable = true;
-    polarity = "dark";
-    image = ./assets/miffy-wallpaper.jpg;
   };
 
   # Set your time zone.
@@ -69,6 +68,15 @@
       };
     };
   };
+
+  # programs.hyprland = {
+  #   enable = true;
+  #   # set the flake package
+  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #   # make sure to also set the portal package, so that they are in sync
+  #   portalPackage =
+  #     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  # };
 
   hardware.graphics.enable = true;
 
@@ -139,7 +147,11 @@
         "nix-command"
         "flakes"
       ];
-      substituters = [ "https://aseipp-nix-cache.freetls.fastly.net" ];
+      substituters = [
+        "https://aseipp-nix-cache.freetls.fastly.net"
+        "https://hyprland.cachix.org"
+      ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
   };
 

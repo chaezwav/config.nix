@@ -6,8 +6,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./modules/shell.nix
-    ./modules/ghostty.nix
-    ./modules/sway.nix
+    ./modules/terminal.nix
+    ./modules/window_manager.nix
     ./modules/editor.nix
   ];
 
@@ -31,11 +31,6 @@
 
       lla
       bat
-
-      grim
-      slurp
-      wl-clipboard
-      mako
     ];
   };
 }
