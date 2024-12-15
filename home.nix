@@ -1,14 +1,15 @@
-{ pkgs
-, ...
-}: {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./modules/shell.nix
-      ./modules/ghostty.nix
-      ./modules/sway.nix
-      ./modules/editor.nix
-    ];
+{
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./modules/shell.nix
+    ./modules/ghostty.nix
+    ./modules/sway.nix
+    ./modules/editor.nix
+  ];
 
   programs.home-manager.enable = true;
 
@@ -30,6 +31,11 @@
 
       lla
       bat
+
+      grim
+      slurp
+      wl-clipboard
+      mako
     ];
   };
 }

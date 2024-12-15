@@ -13,6 +13,11 @@
       startup = [
         { command = "firefox"; }
       ];
+      gaps = {
+        inner = 10;
+        outer = 10;
+      };
     };
   };
+
 }

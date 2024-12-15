@@ -31,28 +31,39 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, stylix, home-manager, ghostty, nix-index-database, nh, ... }: {
-    nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
-      modules = [
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.koehn = import ./home.nix;
-          };
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      stylix,
+      home-manager,
+      ghostty,
+      nix-index-database,
+      nh,
+      ...
+    }:
+    {
+      nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
+        modules = [
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.koehn = import ./home.nix;
+            };
 
-          programs.nix-index-database.comma.enable = true;
+            programs.nix-index-database.comma.enable = true;
 
-          environment.systemPackages = [
-            ghostty.packages.x86_64-linux.default
-            nh.packages.x86_64-linux.default
-          ];
-        }
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        nix-index-database.nixosModules.nix-index
-        stylix.nixosModules.stylix
-      ];
+            environment.systemPackages = [
+              ghostty.packages.x86_64-linux.default
+              nh.packages.x86_64-linux.default
+            ];
+          }
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          nix-index-database.nixosModules.nix-index
+          stylix.nixosModules.stylix
+        ];
+      };
     };
-  };
 }
