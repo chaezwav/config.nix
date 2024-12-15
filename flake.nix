@@ -4,6 +4,13 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    stylix.url = "github:danth/stylix";
+
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +31,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ghostty, nix-index-database, ... }: {
+  outputs = inputs@{ self, nixpkgs, stylix, home-manager, ghostty, nix-index-database, nh, ... }: {
     nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
       modules = [
         {
@@ -36,13 +43,15 @@
 
           programs.nix-index-database.comma.enable = true;
 
-          environment.systemPackages = with ghostty; [
-            packages.x86_64-linux.default
+          environment.systemPackages = [
+            ghostty.packages.x86_64-linux.default
+            nh.packages.x86_64-linux.default
           ];
         }
         ./configuration.nix
         home-manager.nixosModules.home-manager
         nix-index-database.nixosModules.nix-index
+        stylix.nixosModules.stylix
       ];
     };
   };

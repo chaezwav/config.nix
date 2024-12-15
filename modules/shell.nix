@@ -1,7 +1,8 @@
 {
   # inputs,
   ...
-}: {
+}:
+{
   programs = {
     git = {
       enable = true;
@@ -18,9 +19,6 @@
         set fish_greeting
 
         if test "$TERM" = "xterm-ghostty"
-            if status is-interactive
-                eval (zellij setup --generate-auto-start fish | string collect)
-            end
             fastfetch
         end
       '';
@@ -40,20 +38,12 @@
       };
     };
 
-    bat = {
-      enable = true;
-    };
-
     zoxide = {
       enable = true;
       enableFishIntegration = true;
       options = [
         "--cmd cd"
       ];
-    };
-
-    zellij = {
-      enable = true;
     };
 
     fastfetch = {

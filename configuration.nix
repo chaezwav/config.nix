@@ -5,11 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   boot = {
     loader = {
@@ -23,6 +22,12 @@
   networking = {
     hostName = "performante";
     networkmanager.enable = true;
+  };
+
+  stylix = {
+    enable = true;
+    polarity = "dark";
+    image = ./assets/miffy-wallpaper.jpg;
   };
 
   # Set your time zone.
@@ -46,7 +51,7 @@
   services.xserver = {
     enable = true;
     desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
+    # displayManager.gdm.enable = true;
     videoDrivers = [ "nvidia" ];
 
     xkb = {
@@ -55,12 +60,35 @@
     };
   };
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'";
+        user = "greeter";
+      };
+    };
+  };
+
   hardware.graphics.enable = true;
 
   hardware.nvidia = {
     open = true;
     package = config.boot.kernelPackages.nvidiaPackages.beta;
+    nvidiaPersistenced = true;
+    modesetting.enable = true;
+    forceFullCompositionPipeline = true;
+    # prime = {
+    #   nvidiaBusId = "0@1:0:0";
+    #   offload = {
+    #     enable = true;
+    #     enableOffloadCmd = true;
+    #   };
+    # };
   };
+
+  # Enable polkit
+  security.polkit.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -85,7 +113,10 @@
   users.users.koehn = {
     isNormalUser = true;
     description = "Koehn";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.fish;
     # packages = with pkgs; [
     #  thunderbird
@@ -104,7 +135,10 @@
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       substituters = [ "https://aseipp-nix-cache.freetls.fastly.net" ];
     };
   };
@@ -113,21 +147,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/koehn/Documents/nixos-config";
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    nixd
-    nil
-    nixpkgs-fmt
-    nh
-
-    git
-
-    lla
-  ];
 
   fonts.packages = with pkgs; [
     noto-fonts
