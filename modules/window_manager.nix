@@ -83,6 +83,8 @@
         outer = 10;
       };
 
+      window.titleBar = false;
+
       keybindings =
         let
           modifier = config.wayland.windowManager.sway.config.modifier;
