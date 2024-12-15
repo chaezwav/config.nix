@@ -5,7 +5,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -49,7 +48,7 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.gnome.enable = true;
+    # desktopManager.gnome.enable = true;
     # displayManager.gdm.enable = true;
     videoDrivers = [ "nvidia" ];
 
@@ -69,15 +68,6 @@
     };
   };
 
-  # programs.hyprland = {
-  #   enable = true;
-  #   # set the flake package
-  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  #   # make sure to also set the portal package, so that they are in sync
-  #   portalPackage =
-  #     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  # };
-
   hardware.graphics.enable = true;
 
   hardware.nvidia = {
@@ -86,13 +76,6 @@
     nvidiaPersistenced = true;
     modesetting.enable = true;
     forceFullCompositionPipeline = true;
-    # prime = {
-    #   nvidiaBusId = "0@1:0:0";
-    #   offload = {
-    #     enable = true;
-    #     enableOffloadCmd = true;
-    #   };
-    # };
   };
 
   # Enable polkit
@@ -109,12 +92,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -126,9 +103,6 @@
       "wheel"
     ];
     shell = pkgs.fish;
-    # packages = with pkgs; [
-    #  thunderbird
-    # ];
   };
 
   # Install firefox.
@@ -149,9 +123,7 @@
       ];
       substituters = [
         "https://aseipp-nix-cache.freetls.fastly.net"
-        "https://hyprland.cachix.org"
       ];
-      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
   };
 
@@ -165,9 +137,6 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
     nerd-fonts.commit-mono
   ];
 
@@ -182,8 +151,6 @@
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
     polkitPolicyOwners = [ "koehn" ];
   };
 

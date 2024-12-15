@@ -83,7 +83,7 @@
         outer = 10;
       };
 
-      window.titleBar = false;
+      window.titlebar = false;
 
       keybindings =
         let
