@@ -1,8 +1,13 @@
 {
   # inputs,
+  pkgs,
   ...
 }:
 {
+  home.packages = with pkgs; [
+    bat
+  ];
+
   programs = {
     git = {
       enable = true;
@@ -23,7 +28,7 @@
         end
       '';
       shellAliases = {
-        ls = "lla";
+        ls = "eza";
       };
       functions = {
         fish_prompt = ''
@@ -37,6 +42,16 @@
             (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
         '';
       };
+    };
+
+    eza = {
+      enable = true;
+      enableFishIntegration = true;
+      colors = "auto";
+      icons = "auto";
+      extraOptions = [
+        "--hyperlink"
+      ];
     };
 
     zoxide = {

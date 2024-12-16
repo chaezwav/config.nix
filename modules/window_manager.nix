@@ -14,6 +14,7 @@
     mako
     fuzzel
     swaybg
+    dconf
   ];
 
   programs.fuzzel = {

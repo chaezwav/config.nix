@@ -28,9 +28,6 @@
       nixfmt-rfc-style
 
       git
-
-      lla
-      bat
     ];
   };
 }
