@@ -106,6 +106,8 @@
     shell = pkgs.fish;
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   # Install firefox.
   programs.firefox.enable = true;
 

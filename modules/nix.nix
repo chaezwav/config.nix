@@ -1,7 +1,9 @@
-{ pkgs, lib, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
-
+  pkgs,
+  lib,
+  ...
+}:
+{
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
