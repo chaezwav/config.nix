@@ -1,6 +1,7 @@
 {
   # inputs,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -30,17 +31,24 @@
       shellAliases = {
         ls = "eza";
       };
-      functions = {
-        fish_prompt = ''
-          set -l nix_shell_info (
-            if test -n "$IN_NIX_SHELL"
-              echo -n "<nix-shell>"
-            end
-          )
+    };
 
-          printf '%s%s%s %s%s%s ~> ' (set_color red) $nix_shell_info (set_color normal) \
-            (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
-        '';
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        add_newline = false;
+        format = lib.concatStrings [
+          "$git_branch"
+          "$git_status"
+          "$package"
+          "$character"
+        ];
+        scan_timeout = 10;
+        character = {
+          success_symbol = "[->](bold green)";
+          error_symbol = "[~>](bold red)";
+        };
       };
     };
 
