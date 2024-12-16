@@ -39,15 +39,17 @@
       settings = {
         add_newline = false;
         format = lib.concatStrings [
+          "$package"
           "$git_branch"
           "$git_status"
-          "$package"
+          "$directory"
           "$character"
         ];
         scan_timeout = 10;
         character = {
-          success_symbol = "[->](bold green)";
+          success_symbol = "[->](bold fg:218)";
           error_symbol = "[~>](bold red)";
+          vimcmd_symbol = "[V>](bold green)";
         };
       };
     };
