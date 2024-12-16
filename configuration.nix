@@ -12,7 +12,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./modules/nix.nix
   ];
 
   boot = {
@@ -107,6 +106,20 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  nix = {
+    package = pkgs.nixVersions.latest;
+    settings = {
+      warn-dirty = false;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [
+        "https://aseipp-nix-cache.freetls.fastly.net"
+      ];
+    };
+  };
 
   # Install firefox.
   programs.firefox.enable = true;

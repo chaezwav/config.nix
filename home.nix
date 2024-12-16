@@ -5,10 +5,10 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./modules/home/shell.nix
-    ./modules/home/terminal.nix
-    ./modules/home/window_manager.nix
-    ./modules/home/editor.nix
+    ./modules/shell.nix
+    ./modules/terminal.nix
+    ./modules/window_manager.nix
+    ./modules/editor.nix
   ];
 
   programs.home-manager.enable = true;
