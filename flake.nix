@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # stylix.url = "github:danth/stylix";
-    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.url = "github:hyprwm/Hyprland";
 
     nh = {
       url = "github:viperML/nh";
@@ -38,9 +38,7 @@
       nixpkgs,
       # stylix,
       home-manager,
-      ghostty,
       nix-index-database,
-      nh,
       ...
     }:
     {
@@ -56,7 +54,7 @@
 
             programs.nix-index-database.comma.enable = true;
 
-            environment.systemPackages = [
+            environment.systemPackages = with inputs; [
               ghostty.packages.x86_64-linux.default
               nh.packages.x86_64-linux.default
             ];

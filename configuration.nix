@@ -12,6 +12,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./modules/nix.nix
   ];
 
   boot = {
@@ -110,22 +111,6 @@
 
   # Enable vendor completions
   programs.fish.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  nix = {
-    package = pkgs.nixVersions.latest;
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      substituters = [
-        "https://aseipp-nix-cache.freetls.fastly.net"
-      ];
-    };
-  };
 
   programs.nh = {
     enable = true;
