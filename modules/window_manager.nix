@@ -17,6 +17,13 @@
     dconf
   ];
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.rose-pine-cursor;
+    name = "BreezeX-RosePine-Linux";
+    size = 32;
+  };
+
   programs.fuzzel = {
     enable = true;
     settings = lib.mkForce {

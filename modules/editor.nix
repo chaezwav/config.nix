@@ -1,4 +1,11 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    nixd
+    nil
+    nixfmt-rfc-style
+  ];
+
   programs.zed-editor = {
     enable = true;
     extensions = [
@@ -13,9 +20,11 @@
 
       theme = {
         mode = "dark";
-        light = "One Light";
-        dark = "One Dark";
+        dark = "Rosé Pine";
+        light = "Rosé Pine Dawn";
       };
+
+      buffer_font_family = "CommitMono";
 
       tabs = {
         file_icons = true;
@@ -43,7 +52,7 @@
       };
 
       assistant = {
-        enabled = true;
+        enabled = false;
         version = "2";
         default_model = {
           provider = "copilot_chat";

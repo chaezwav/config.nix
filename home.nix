@@ -23,10 +23,6 @@
       _1password-gui-beta
       _1password-cli
 
-      nixd
-      nil
-      nixfmt-rfc-style
-
       git
     ];
   };

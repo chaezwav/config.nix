@@ -14,7 +14,7 @@
         font-size = 14;
         font-style = "Medium";
 
-        theme = "Pnevma";
+        theme = "rose-pine";
         cursor-style = "bar";
         window-theme = "ghostty";
 
