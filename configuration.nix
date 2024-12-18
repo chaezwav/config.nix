@@ -5,13 +5,16 @@
 {
   config,
   pkgs,
+  inputs,
   ...
+
 }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.nixvim.nixosModules.nixvim
   ];
 
   boot = {
@@ -62,7 +65,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd 'niri'";
         user = "greeter";
       };
     };
@@ -117,6 +120,7 @@
       ];
       substituters = [
         "https://aseipp-nix-cache.freetls.fastly.net"
+	"niri.cachix.org"
       ];
     };
   };
@@ -126,6 +130,22 @@
 
   # Enable vendor completions
   programs.fish.enable = true;
+
+  programs.nixvim = {
+    enable = true;
+    opts = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+    };
+    colorschemes.rose-pine.enable = true;
+  };
+
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+  programs.niri = { 
+    package = pkgs.niri-unstable;
+    enable = true;
+  };
 
   programs.nh = {
     enable = true;

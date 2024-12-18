@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 {
@@ -74,6 +75,20 @@
   #   bind = $mainMod, Q, killactive,
   #   bind = $mainMod SHIFT, Q, exit,
   # '';
+
+  programs.niri.settings = {
+    binds = with config.lib.niri.actions; let
+        sh = spawn "sh" "-c";
+    in { 
+      "Mod+Return".action = spawn "ghostty";
+      "Mod+Space".action = spawn "fuzzel";
+
+      "Mod+Q".action = close-window;
+      "Mod+Shift+Q".action = quit { skip-confirmation=true; };
+
+      "Print".action = sh ''grim -g "$(slurp)" - | wl-copy'';
+    }; 
+  };
 
   wayland.windowManager.sway = {
     enable = true;

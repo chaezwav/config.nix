@@ -7,6 +7,13 @@
     # stylix.url = "github:danth/stylix";
     # hyprland.url = "github:hyprwm/Hyprland";
 
+    niri.url = "github:sodiboo/niri-flake";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nh = {
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,9 +43,6 @@
     inputs@{
       self,
       nixpkgs,
-      # stylix,
-      home-manager,
-      nix-index-database,
       ...
     }:
     {
@@ -60,8 +64,9 @@
             ];
           }
           ./configuration.nix
-          home-manager.nixosModules.home-manager
-          nix-index-database.nixosModules.nix-index
+          inputs.home-manager.nixosModules.home-manager
+          inputs.nix-index-database.nixosModules.nix-index
+	  inputs.niri.nixosModules.niri
           # stylix.nixosModules.stylix
         ];
       };
