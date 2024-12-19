@@ -16,7 +16,6 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
-    inputs.nixvim.nixosModules.nixvim
   ];
 
   boot = {
@@ -113,10 +112,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.koehn.imports = [
-      ./home.nix
-      inputs.niri.homeModules.niri
-    ];
+    users.koehn = import ./modules/home { inherit pkgs inputs; };
   };
 
   programs.nix-index-database.comma.enable = true;
@@ -143,16 +139,6 @@
 
   # Enable vendor completions
   programs.fish.enable = true;
-
-  programs.nixvim = {
-    enable = true;
-    opts = {
-      number = true;
-      relativenumber = true;
-      shiftwidth = 2;
-    };
-    colorschemes.rose-pine.enable = true;
-  };
 
   environment.systemPackages = with inputs; [
     ghostty.packages.x86_64-linux.default

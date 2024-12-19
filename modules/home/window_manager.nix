@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 {
@@ -77,17 +76,20 @@
   # '';
 
   programs.niri.settings = {
-    binds = with config.lib.niri.actions; let
+    binds =
+      with config.lib.niri.actions;
+      let
         sh = spawn "sh" "-c";
-    in { 
-      "Mod+Return".action = spawn "ghostty";
-      "Mod+Space".action = spawn "fuzzel";
+      in
+      {
+        "Mod+Return".action = spawn "ghostty";
+        "Mod+Space".action = spawn "fuzzel";
 
-      "Mod+Q".action = close-window;
-      "Mod+Shift+Q".action = quit { skip-confirmation=true; };
+        "Mod+Q".action = close-window;
+        "Mod+Shift+Q".action = quit { skip-confirmation = true; };
 
-      "Print".action = sh ''grim -g "$(slurp)" - | wl-copy'';
-    };
+        "Print".action = sh ''grim -g "$(slurp)" - | wl-copy'';
+      };
 
     layout = {
       center-focused-column = "always";
@@ -97,14 +99,14 @@
       {
         geometry-corner-radius = {
           top-left = 8.0;
-	  top-right = 8.0;
-	  bottom-left = 8.0;
-	  bottom-right = 8.0;
-	};
-	clip-to-geometry = true;
+          top-right = 8.0;
+          bottom-left = 8.0;
+          bottom-right = 8.0;
+        };
+        clip-to-geometry = true;
       }
       {
-        matches = [{app-id = "^firefox$";}];
+        matches = [ { app-id = "^firefox$"; } ];
         open-maximized = true;
       }
     ];

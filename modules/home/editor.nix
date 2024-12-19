@@ -1,10 +1,42 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    nixd
-    nil
-    nixfmt-rfc-style
-  ];
+  programs.nixvim = {
+    enable = true;
+    opts = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+    };
+    colorschemes.rose-pine.enable = true;
+    plugins = {
+      lsp = {
+        enable = true;
+        servers = {
+          nixd = {
+            enable = true;
+            package = pkgs.nixd;
+            autostart = true;
+            cmd = [
+              "nixd"
+            ];
+            settings.formatting.command = [ "nixfmt" ];
+          };
+        };
+      };
+
+      lsp-format = {
+        enable = true;
+        settings = {
+          nixd = {
+            sync = true;
+          };
+        };
+      };
+
+      bufferline.enable = true;
+      web-devicons.enable = true;
+    };
+  };
 
   programs.zed-editor = {
     enable = true;
