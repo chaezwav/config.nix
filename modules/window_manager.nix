@@ -87,7 +87,27 @@
       "Mod+Shift+Q".action = quit { skip-confirmation=true; };
 
       "Print".action = sh ''grim -g "$(slurp)" - | wl-copy'';
-    }; 
+    };
+
+    layout = {
+      center-focused-column = "always";
+    };
+
+    window-rules = [
+      {
+        geometry-corner-radius = {
+          top-left = 8.0;
+	  top-right = 8.0;
+	  bottom-left = 8.0;
+	  bottom-right = 8.0;
+	};
+	clip-to-geometry = true;
+      }
+      {
+        matches = [{app-id = "^firefox$";}];
+        open-maximized = true;
+      }
+    ];
   };
 
   wayland.windowManager.sway = {
