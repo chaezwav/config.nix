@@ -50,8 +50,10 @@
     in
     {
       nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        system = system;
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+        };
         modules = [
           ./configuration.nix
         ];
