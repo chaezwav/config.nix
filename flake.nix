@@ -45,29 +45,15 @@
       nixpkgs,
       ...
     }:
+    let
+      system = nixpkgs.lib.mkDefault "x86_64-linux";
+    in
     {
       nixosConfigurations.performante = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
+        system = system;
         modules = [
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.koehn = import ./home.nix;
-            };
-
-            programs.nix-index-database.comma.enable = true;
-
-            environment.systemPackages = with inputs; [
-              ghostty.packages.x86_64-linux.default
-              nh.packages.x86_64-linux.default
-            ];
-          }
           ./configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nix-index-database.nixosModules.nix-index
-	  inputs.niri.nixosModules.niri
-          # stylix.nixosModules.stylix
         ];
       };
     };

@@ -14,6 +14,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+    inputs.nix-index-database.nixosModules.nix-index
     inputs.nixvim.nixosModules.nixvim
   ];
 
@@ -108,6 +110,17 @@
     shell = pkgs.fish;
   };
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.koehn.imports = [
+      ./home.nix
+      inputs.niri.homeModules.niri
+    ];
+  };
+
+  programs.nix-index-database.comma.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   nix = {
@@ -120,7 +133,7 @@
       ];
       substituters = [
         "https://aseipp-nix-cache.freetls.fastly.net"
-	"niri.cachix.org"
+        "niri.cachix.org"
       ];
     };
   };
@@ -141,8 +154,13 @@
     colorschemes.rose-pine.enable = true;
   };
 
+  environment.systemPackages = with inputs; [
+    ghostty.packages.x86_64-linux.default
+    nh.packages.x86_64-linux.default
+  ];
+
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
-  programs.niri = { 
+  programs.niri = {
     package = pkgs.niri-unstable;
     enable = true;
   };
