@@ -33,6 +33,14 @@
         };
       };
 
+      coq-nvim = {
+        enable = true;
+        settings = {
+          auto_start = "shut-up";
+	};
+	installArtifacts = false;
+      };
+
       bufferline.enable = true;
       web-devicons.enable = true;
     };

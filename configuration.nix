@@ -30,6 +30,10 @@
   networking = {
     hostName = "performante";
     networkmanager.enable = true;
+    firewall = {
+      allowedUDPPorts = [ 5353 ];
+      allowedTCPPorts = [ 57621 ];
+    };
   };
 
   # Set your time zone.
@@ -66,7 +70,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd 'niri'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd 'niri-session'";
         user = "greeter";
       };
     };
@@ -182,12 +186,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

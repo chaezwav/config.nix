@@ -17,11 +17,11 @@
         theme = "rose-pine";
         cursor-style = "bar";
         window-theme = "ghostty";
+	adw-toolbar-style = "flat";
 
-        shell-integration-features = "sudo";
+        shell-integration-features = "sudo, title";
         shell-integration = "fish";
 
         confirm-close-surface = false;
-        window-decoration = false;
       };
 }
