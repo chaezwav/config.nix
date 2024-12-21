@@ -16,6 +16,7 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
+    inputs.stylix.nixosModules.stylix
   ];
 
   boot = {
@@ -52,19 +53,66 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
+    inputMethod = {
+      type = "fcitx5";
+      enable = true;
+      fcitx5 = {
+        addons = with pkgs; [
+          fcitx5-mozc
+          fcitx5-gtk
+        ];
+        waylandFrontend = true;
+      };
+    };
   };
 
   services.xserver = {
     enable = true;
-    # desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = true;
     # displayManager.gdm.enable = true;
     videoDrivers = [ "nvidia" ];
-
+    excludePackages = [ pkgs.xterm ];
     xkb = {
       layout = "us";
       variant = "";
     };
   };
+
+  environment.gnome.excludePackages = with pkgs; [
+    baobab # disk usage analyzer
+    cheese # photo booth
+    eog # image viewer
+    epiphany # web browser
+    simple-scan # document scanner
+    totem # video player
+    yelp # help viewer
+    evince # document viewer
+    file-roller # archive manager
+    geary # email client
+    seahorse # password manager
+
+    # these should be self explanatory
+    gnome-calculator
+    gnome-calendar
+    gnome-characters
+    gnome-clocks
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-system-monitor
+    gnome-weather
+    gnome-disk-utility
+    gnome-connections
+  ];
+
+  # stylix = {
+  #   enable = true;
+  #   autoEnable = true;
+  #   polarity = "dark";
+  #   image = ./assets/pink.png;
+  # };
 
   services.greetd = {
     enable = true;

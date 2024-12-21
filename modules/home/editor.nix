@@ -7,7 +7,8 @@
       relativenumber = true;
       shiftwidth = 2;
     };
-    colorschemes.rose-pine.enable = true;
+    extraPlugins = with pkgs; [ vimPlugins.kanagawa-nvim ];
+    colorscheme = "kanagawa-wave";
     plugins = {
       lsp = {
         enable = true;
@@ -37,8 +38,8 @@
         enable = true;
         settings = {
           auto_start = "shut-up";
-	};
-	installArtifacts = false;
+        };
+        installArtifacts = false;
       };
 
       bufferline.enable = true;
@@ -51,20 +52,21 @@
     extensions = [
       "nix"
       "toml"
+      "kanagawa-themes"
     ];
     userSettings = {
       hour_format = "hour24";
       auto_update = false;
+
       ui_font_size = 16;
       buffer_font_size = 16;
+      buffer_font_family = "CommitMono";
 
       theme = {
         mode = "dark";
-        dark = "Rosé Pine";
-        light = "Rosé Pine Dawn";
+        dark = "Kanagawa Wave";
+        light = "Kanagwa Lotus";
       };
-
-      buffer_font_family = "CommitMono";
 
       tabs = {
         file_icons = true;

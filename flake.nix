@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix";
     # hyprland.url = "github:hyprwm/Hyprland";
 
     niri.url = "github:sodiboo/niri-flake";
@@ -41,7 +41,6 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
       ...
     }:

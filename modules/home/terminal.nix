@@ -14,10 +14,10 @@
         font-size = 14;
         font-style = "Medium";
 
-        theme = "rose-pine";
+        theme = "Kanagawa Wave";
         cursor-style = "bar";
         window-theme = "ghostty";
-	adw-toolbar-style = "flat";
+        adw-toolbar-style = "flat";
 
         shell-integration-features = "sudo, title";
         shell-integration = "fish";

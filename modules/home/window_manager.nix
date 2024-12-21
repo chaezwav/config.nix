@@ -7,21 +7,51 @@
 {
   services.gnome-keyring.enable = true;
 
-  home.packages = with pkgs; [
-    grim
-    slurp
-    wl-clipboard
-    mako
-    fuzzel
-    swaybg
-    dconf
-  ];
+  home.packages =
+    (with pkgs; [
+      grim
+      slurp
+      wl-clipboard
+      mako
+      fuzzel
+      swaybg
+      dconf
+    ])
+    ++ (with pkgs.gnomeExtensions; [
+      kimpanel
+    ]);
 
   home.pointerCursor = {
     gtk.enable = true;
-    package = pkgs.rose-pine-cursor;
-    name = "BreezeX-RosePine-Linux";
+    package = pkgs.whitesur-cursors;
+    name = "WhiteSur-cursors";
     size = 32;
+  };
+
+  # gnome stuff TODO: reorganize
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        disable-user-extensions = false;
+        enabled-extensions = [
+          "kimpanel@kde.org"
+        ];
+
+        disabled-extensions = [
+          "dash-to-dock@micxgx.gmail.com"
+          "window-list@gnome-shell-extensions.gcampax.github.com"
+          "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+          "light-style@gnome-shell-extensions.gcampax.github.com"
+          "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+          "apps-menu@gnome-shell-extensions.gcampax.github.com"
+          "emoji-copy@felipeftn"
+          "native-window-placement@gnome-shell-extensions.gcampax.github.com"
+          "status-icons@gnome-shell-extensions.gcampax.github.com"
+        ];
+      };
+    };
   };
 
   programs.fuzzel = {
@@ -152,20 +182,20 @@
       '';
   };
 
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-  };
+  # gtk = {
+  # enable = true;
+  # theme = {
+  # name = "Adwaita-dark";
+  # package = pkgs.gnome-themes-extra;
+  # };
+  # };
 
-  qt = {
-    enable = true;
-    platformTheme.name = "adwaita";
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt;
-    };
-  };
+  # qt = {
+  # enable = true;
+  # platformTheme.name = "adwaita";
+  # style = {
+  # name = "adwaita-dark";
+  # package = pkgs.adwaita-qt;
+  # };
+  # };
 }
