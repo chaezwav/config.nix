@@ -21,89 +21,7 @@
       kimpanel
     ]);
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.whitesur-cursors;
-    name = "WhiteSur-cursors";
-    size = 32;
-  };
-
   # gnome stuff TODO: reorganize
-
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/shell" = {
-        disable-user-extensions = false;
-        enabled-extensions = [
-          "kimpanel@kde.org"
-        ];
-
-        disabled-extensions = [
-          "dash-to-dock@micxgx.gmail.com"
-          "window-list@gnome-shell-extensions.gcampax.github.com"
-          "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-          "light-style@gnome-shell-extensions.gcampax.github.com"
-          "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-          "apps-menu@gnome-shell-extensions.gcampax.github.com"
-          "emoji-copy@felipeftn"
-          "native-window-placement@gnome-shell-extensions.gcampax.github.com"
-          "status-icons@gnome-shell-extensions.gcampax.github.com"
-        ];
-      };
-    };
-  };
-
-  programs.fuzzel = {
-    enable = true;
-    settings = lib.mkForce {
-      main = {
-        font = "CommitMono:size=14";
-        use-bold = true;
-        prompt = "~> ";
-        placeholder = " Search for...";
-      };
-    };
-  };
-
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts = {
-      monospace = [ "CommitMono" ];
-      serif = [ "Noto Serif" ];
-      sansSerif = [ "Noto Sans" ];
-      emoji = [ "Noto Color Emoji" ];
-    };
-  };
-
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   xwayland.enable = true;
-  # };
-
-  # services.hyprpaper = {
-  #   enable = true;
-  #   settings = {
-  #     ipc = "on";
-  #     splash = false;
-
-  #     preload = [
-  #       "/home/koehn/Documents/nixos-config/assets/miffy-wallpaper.jpg"
-  #     ];
-  #     wallpaper = [ "/home/koehn/Documents/nixos-config/assets/miffy-wallpaper.jpg" ];
-  #   };
-  # };
-
-  # home.file."~/.config/hypr/hyprland.conf".text = ''
-  #   $mainMod = SUPER
-  #   $terminal = ghostty
-  #   $menu = fuzzel
-
-  #   bind = $mainMod, ENTER, exec, $terminal
-  #   bind = $mainMod, SPACE, exec, $menu
-  #   bind = $mainMod, Q, killactive,
-  #   bind = $mainMod SHIFT, Q, exit,
-  # '';
 
   programs.niri = {
     settings = {
@@ -141,13 +59,11 @@
           open-maximized = true;
         }
       ];
-
-      environment."NIXOS_OZONE_WL" = "1";
     };
   };
 
   wayland.windowManager.sway = {
-    enable = true;
+    enable = false;
     wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
     config = {
       modifier = "Mod4";
@@ -180,6 +96,52 @@
       ''
         bindsym ${modifier}+p exec grim -g "$(slurp -d)" - | wl-copy
       '';
+  };
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        disable-user-extensions = false;
+        enabled-extensions = [
+          "kimpanel@kde.org"
+          "dash-to-dock@micxgx.gmail.com"
+        ];
+
+        disabled-extensions = [
+          "window-list@gnome-shell-extensions.gcampax.github.com"
+          "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+          "light-style@gnome-shell-extensions.gcampax.github.com"
+          "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+          "apps-menu@gnome-shell-extensions.gcampax.github.com"
+          "emoji-copy@felipeftn"
+          "native-window-placement@gnome-shell-extensions.gcampax.github.com"
+          "status-icons@gnome-shell-extensions.gcampax.github.com"
+        ];
+      };
+    };
+  };
+
+  programs.fuzzel = {
+    enable = true;
+    settings = lib.mkForce {
+      main = {
+        font = "CommitMono:size=14";
+        use-bold = true;
+        prompt = "~> ";
+        placeholder = " Search for...";
+      };
+    };
+  };
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "CommitMono" ];
+      serif = [ "Noto Serif" ];
+      sansSerif = [ "Noto Sans" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
   };
 
   # gtk = {

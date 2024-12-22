@@ -7,7 +7,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./shell.nix
-    ./terminal.nix
+    ./ghostty.nix
     ./window_manager.nix
     ./editor.nix
     inputs.nixvim.homeManagerModules.nixvim

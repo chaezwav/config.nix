@@ -105,6 +105,7 @@
     gnome-weather
     gnome-disk-utility
     gnome-connections
+    gnome-tour
   ];
 
   # stylix = {
@@ -182,7 +183,9 @@
       substituters = [
         "https://aseipp-nix-cache.freetls.fastly.net"
         "niri.cachix.org"
+        # "https://hyprland.cachix.org"
       ];
+      # trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
   };
 
@@ -196,6 +199,8 @@
     ghostty.packages.x86_64-linux.default
     nh.packages.x86_64-linux.default
   ];
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
   programs.niri = {
